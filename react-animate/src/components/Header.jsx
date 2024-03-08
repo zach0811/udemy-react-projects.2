@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
 
-import NewChallenge from './NewChallenge.jsx';
+import NewChallenge from "./NewChallenge.jsx";
 
 export default function Header() {
   const [isCreatingNewChallenge, setIsCreatingNewChallenge] = useState();
@@ -15,13 +16,20 @@ export default function Header() {
 
   return (
     <>
-      {isCreatingNewChallenge && <NewChallenge onDone={handleDone} />}
+      <AnimatePresence>
+        {isCreatingNewChallenge && <NewChallenge onDone={handleDone} />}
+      </AnimatePresence>
 
       <header id="main-header">
         <h1>Your Challenges</h1>
-        <button onClick={handleStartAddNewChallenge} className="button">
+        <motion.button
+          onClick={handleStartAddNewChallenge}
+          transition={{ type: "spring", stiffness: 100 }}
+          className="button"
+          whileHover={{ scale: 1.1 }}
+        >
           Add Challenge
-        </button>
+        </motion.button>
       </header>
     </>
   );
